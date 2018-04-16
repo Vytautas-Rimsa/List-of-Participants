@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">    
+</head>
+<body>
+    <h1>List of Participants:</h1>
+    <label>Name</label>
+    <input type="text" id="vardas">    
+    <input type='button' onclick='insertName()' value='Insert'>
+    <ol id="Start"></ol>
+    
+    <script>
+        var list = document.getElementById('Start');
+        function insertName() {
+            var firstname = document.getElementById('vardas').value;            
+            var eilute = document.createElement('li');
+            eilute.appendChild(document.createTextNode(firstname));
+            list.appendChild(eilute);
+        }
+    </script>
+
+    <input type='button' value='Report' onclick='generate_table()'>
+    <h4></h4> 
+
+    <script>
+        function randomCode() {
+            var kodas ="";
+	        var code = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";	
+	        for (var i=0; i<5; i++) {
+		        var randomNumber = Math.floor(Math.random() * code.length);
+		        kodas += code.substring(randomNumber,randomNumber+1);
+	        }
+	        return kodas;
+        }
+
+        function generate_table() {
+            var paragrafas ="";
+            var reziume = document.getElementById("Start").getElementsByTagName("li");
+	        paragrafas+="<table border = 1> <tr><th><b> Nr. </b></th> <th><b> Participant: </b></th> <th><b> Code: </b></th></tr>";
+	        for (var i=0; i<reziume.length; i++){
+		        paragrafas += "<tr><td>" + (i + 1 + ".") + "</td><td>" + reziume[i].innerHTML + "</td><td>" + randomCode() + "</td></tr>";
+	        }
+	        paragrafas+="</table>";
+	        document.getElementById("rezultatas").innerHTML = paragrafas;            
+        }
+    </script>
+    <p id="rezultatas"></p>
+</body>
+</html>
